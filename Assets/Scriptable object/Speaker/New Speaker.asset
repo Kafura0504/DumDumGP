@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e987c18b1da44bb4cb50c18876e10d1d, type: 3}
   m_Name: New Speaker
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Rahmat
   color: {r: 0, g: 0, b: 0, a: 0}
   ekspresi:
     Normal: {fileID: 0}

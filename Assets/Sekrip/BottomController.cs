@@ -13,6 +13,7 @@ public class BottomController : MonoBehaviour
     public GameState state;
     private int dialogueIndex;
     private String dialogueTextStr;
+    private string displayText;
     [Header("UI Element")]
     public GameObject Bottombar;
     public TextMeshProUGUI nameText;
@@ -41,7 +42,16 @@ public class BottomController : MonoBehaviour
         yield return new WaitForSeconds(0);
         for (int i = 0; i < dialogueTextStr.Length; i++)
         {
-            
+            displayText += dialogueTextStr[i];
+            DialogueText.SetText(displayText);
+            yield return new WaitForSeconds(0.1f);
         }
+    } 
+    void Start()
+    {
+        nameText.SetText("");
+        DialogueText.SetText("");
+        nameText.SetText(scene.scenes[0].pembicara.Name);
+        StartCoroutine(runningText(0));
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - Dialogue: 
-    pembicara: {fileID: 11400000, guid: 89fe2b592fad0594cb8e1ffe887a9629, type: 2}
+    pembicara: {fileID: 0}
     Ekspresi: 0
   Background: {fileID: 0}
   nextScene: {fileID: 0}
