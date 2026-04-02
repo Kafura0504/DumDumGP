@@ -18,6 +18,9 @@ public class ScriptableScene : ScriptableObject
         public String Dialogue;
         public Speaker pembicara;
         public ekspresi Ekspresi;
+        [Header("If Has Anim")]
+        public bool hasanim;
+        public Animation anim;
     }
     public adegan[] scenes;
     public Sprite Background;

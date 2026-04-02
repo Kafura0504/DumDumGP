@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Rahmat
   color: {r: 0, g: 0, b: 0, a: 0}
   ekspresi:
-    Normal: {fileID: 0}
-    terrified: {fileID: 0}
-    Cautious: {fileID: 0}
+    Normal: {fileID: 6085869720761934544, guid: 36aadafddf052b648ad4b30aa31555de, type: 3}
+    terrified: {fileID: 97568677871107278, guid: 02465b28f69f7464585bbaa8c6ccc803, type: 3}
+    Cautious: {fileID: 1075993247170539406, guid: 5dc4c48444becfe4fa96deb1c0db2661, type: 3}
     relieved: {fileID: 0}

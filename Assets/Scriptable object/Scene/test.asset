@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   scenes:
-  - Dialogue: 
-    pembicara: {fileID: 0}
+  - Dialogue: I love you Bunny
+    pembicara: {fileID: 11400000, guid: 89fe2b592fad0594cb8e1ffe887a9629, type: 2}
     Ekspresi: 0
-  Background: {fileID: 0}
+  - Dialogue: GO FUCK YOURSELF
+    pembicara: {fileID: 11400000, guid: 89fe2b592fad0594cb8e1ffe887a9629, type: 2}
+    Ekspresi: 1
+  - Dialogue: Awn
+    pembicara: {fileID: 11400000, guid: 89fe2b592fad0594cb8e1ffe887a9629, type: 2}
+    Ekspresi: 2
+  Background: {fileID: -5818016223381332099, guid: 59c0fd1673605e44184742db893f711b, type: 3}
   nextScene: {fileID: 0}
