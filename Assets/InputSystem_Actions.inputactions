@@ -990,6 +990,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TestMenu",
+            "id": "41e479aa-2c09-463e-ad5b-13b94c066611",
+            "actions": [
+                {
+                    "name": "Inventory_TEMP",
+                    "type": "Button",
+                    "id": "f601e9ac-9b56-4393-bfe6-83b7d77fbdab",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fcbcfe37-822c-4386-89b0-df84429af7db",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Inventory_TEMP",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe0c3e94-eacb-4a16-8186-c683cf02700b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Inventory_TEMP",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
