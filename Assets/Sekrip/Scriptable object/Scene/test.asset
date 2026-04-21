@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1fd913529895d4b8b2654b9d351562, type: 3}
+  m_Name: test
+  m_EditorClassIdentifier: 
+  scenes:
+  - Dialogue: Once before the time have name, the first ever spinjitsu master created
+      ninjago
+    pembicara: {fileID: 11400000, guid: 5834141bd76ebd04d98165f0b6364c65, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 0
+    mainVisible: 0
+    Position: 0
+  - Dialogue: Pada zaman itu semua orang hidup dalam kedamaian dan juga kebahagiaan
+    pembicara: {fileID: 11400000, guid: 5834141bd76ebd04d98165f0b6364c65, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 0
+    mainVisible: 0
+    Position: 0
+  - Dialogue: Halo pak Cahyono, bapak sehat?
+    pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 1
+    secondVisible: 0
+    mainVisible: 1
+    Position: 2
+  - Dialogue: Sehat kok, tapi bapak lagi sedih
+    pembicara: {fileID: 11400000, guid: ffd00b4caa7ba62408bb94f4a3837813, type: 2}
+    Ekspresi: 0
+    anim: 3
+    isMainSpeaker: 0
+    secondVisible: 1
+    mainVisible: 1
+    Position: 1
+  - Dialogue: Waduh Sedih kenapa bapak?
+    pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
+    Ekspresi: 0
+    anim: 2
+    isMainSpeaker: 1
+    secondVisible: 1
+    mainVisible: 1
+    Position: 0
+  - Dialogue: Kambing bapak abis dicuri bapak mu.
+    pembicara: {fileID: 11400000, guid: ffd00b4caa7ba62408bb94f4a3837813, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 1
+    mainVisible: 1
+    Position: 0
+  - Dialogue: Hah? tapi bapakku udah ngilang pak TvT
+    pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
+    Ekspresi: 0
+    anim: 1
+    isMainSpeaker: 1
+    secondVisible: 1
+    mainVisible: 1
+    Position: 0
+  Background: {fileID: -5818016223381332099, guid: 59c0fd1673605e44184742db893f711b, type: 3}
+  nextScene: {fileID: 0}
