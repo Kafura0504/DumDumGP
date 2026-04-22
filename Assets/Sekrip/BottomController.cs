@@ -30,9 +30,11 @@ public class BottomController : MonoBehaviour
     public GameObject midpoint;
     public GameObject rightpoint;
 
-    //Private
-    private Animator animationOne;
-    private Animator animationTwo;
+    [Header("Animation Curved")]
+    public float JumpingDuration;
+    public AnimationCurve JumpingCurved;
+    public float ShakeDuration;
+    public AnimationCurve ShakeCurved;
 
     void clicked(InputAction.CallbackContext ctx)
     {
@@ -51,18 +53,6 @@ public class BottomController : MonoBehaviour
             DialogueText.SetText(dialogueTextStr); // skip the running dialogue
             displayText = ""; //reset variable
             GameManager.Instance.state = GameState.Standby; //reset game state
-
-            //reset animation2
-            animationTwo.ResetTrigger("Shake");
-            animationTwo.ResetTrigger("Jump");
-            animationTwo.ResetTrigger("Exited");
-            animationTwo.ResetTrigger("Out");
-            //reset animation1
-            animationOne.ResetTrigger("Entry");
-            animationOne.ResetTrigger("Shake");
-            animationOne.ResetTrigger("Jump");
-            animationOne.ResetTrigger("Exited");
-            animationOne.ResetTrigger("Out");
         }
     }
     public void OnEnable()
@@ -95,6 +85,8 @@ public class BottomController : MonoBehaviour
         {
             speakerOne.gameObject.SetActive(false);
         }
+
+        //is main speaker
         if (scene.scenes[index].isMainSpeaker)
         {
             //set positioning
@@ -115,51 +107,6 @@ public class BottomController : MonoBehaviour
             dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
             nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
 
-            //movde the gameobject to the location
-            // if (scene.scenes[index].Position == ScriptableScene.position.left)
-            // {
-            //     move(speakerOne, leftpoint);
-            // }
-            // else if (scene.scenes[index].Position == ScriptableScene.position.right)
-            // {
-            //     move(speakerOne, rightpoint);
-            // }
-            // if (scene.scenes[index].Position == ScriptableScene.position.mid)
-            // {
-            //     move(speakerOne, midpoint);
-            // }
-
-            //anim
-            if (scene.scenes[index].anim == ScriptableScene.animasi.netral)
-            {
-                //this all just force the anim to the Static state
-                animationOne.ResetTrigger("Entry");
-                animationOne.ResetTrigger("Shake");
-                animationOne.ResetTrigger("Jump");
-                animationOne.ResetTrigger("Exited");
-                animationOne.ResetTrigger("Out");
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.Entry)
-            {
-                animationOne.SetTrigger("Entry"); //make the anim to fade in
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.exit)
-            {
-                animationOne.SetTrigger("Out"); //make the anim to fade out
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.exited)
-            {
-                animationOne.SetTrigger("Exited"); //make the anim to exited
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
-            {
-                animationOne.SetTrigger("Jump"); //make the anim to Jump
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
-            {
-                animationOne.SetTrigger("Shake"); //make the anim to Shake 
-            }
-
             //settin image based on expression
             if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.normal)
             {
@@ -178,6 +125,30 @@ public class BottomController : MonoBehaviour
                 speakerOne.sprite = scene.scenes[index].pembicara.ekspresi.Cautious; // make the speaker cautious
             }
 
+            //movde the gameobject to the location
+            if (scene.scenes[index].Position == ScriptableScene.position.left)
+            {
+                yield return StartCoroutine(move(speakerOne, leftpoint));
+            }
+            else if (scene.scenes[index].Position == ScriptableScene.position.right)
+            {
+                yield return StartCoroutine(move(speakerOne, rightpoint));
+            }
+            if (scene.scenes[index].Position == ScriptableScene.position.mid)
+            {
+                yield return StartCoroutine(move(speakerOne, midpoint));
+            }
+
+            //anim
+            if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
+            {
+                StartCoroutine(animateJump(speakerOne));
+            }
+            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
+            {
+                StartCoroutine(animateShake(speakerOne));
+            }
+
             //running text loop
             for (int i = 0; i < dialogueTextStr.Length; i++)
             {
@@ -188,11 +159,6 @@ public class BottomController : MonoBehaviour
             //reset everything
             displayText = "";
             GameManager.Instance.state = GameState.Standby;
-            animationOne.ResetTrigger("Entry");
-            animationOne.ResetTrigger("Shake");
-            animationOne.ResetTrigger("Jump");
-            animationOne.ResetTrigger("Exited");
-            animationOne.ResetTrigger("Out");
         }
 
         //kalo bukan main speaker
@@ -216,51 +182,6 @@ public class BottomController : MonoBehaviour
             dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
             nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
 
-            //movde the gameobject to the location
-            // if (scene.scenes[index].Position == ScriptableScene.position.left)
-            // {
-            //     move(speakerTwo, leftpoint);
-            // }
-            // else if (scene.scenes[index].Position == ScriptableScene.position.right)
-            // {
-            //     move(speakerTwo, rightpoint);
-            // }
-            // if (scene.scenes[index].Position == ScriptableScene.position.mid)
-            // {
-            //     move(speakerTwo, midpoint);
-            // }
-
-            //anim
-            if (scene.scenes[index].anim == ScriptableScene.animasi.netral)
-            {
-                //this all just force the anim to the Static state
-                animationTwo.ResetTrigger("Entry");
-                animationTwo.ResetTrigger("Shake");
-                animationTwo.ResetTrigger("Jump");
-                animationTwo.ResetTrigger("Exited");
-                animationTwo.ResetTrigger("Out");
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.Entry)
-            {
-                animationTwo.SetTrigger("Entry"); //make the anim to fade in
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.exit)
-            {
-                animationTwo.SetTrigger("Out"); //make the anim to fade out
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.exited)
-            {
-                animationTwo.SetTrigger("Exited"); //make the anim to exited
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
-            {
-                animationTwo.SetTrigger("Jump"); //make the anim to Jump
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
-            {
-                animationTwo.SetTrigger("Shake"); //make the anim to Shake 
-            }
-
             //settin image based on expression
             if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.normal)
             {
@@ -279,6 +200,30 @@ public class BottomController : MonoBehaviour
                 speakerTwo.sprite = scene.scenes[index].pembicara.ekspresi.Cautious; // make the speaker cautious
             }
 
+            //movde the gameobject to the location
+            if (scene.scenes[index].Position == ScriptableScene.position.left)
+            {
+                yield return StartCoroutine(move(speakerTwo, leftpoint));
+            }
+            else if (scene.scenes[index].Position == ScriptableScene.position.right)
+            {
+                yield return StartCoroutine(move(speakerTwo, rightpoint));
+            }
+            if (scene.scenes[index].Position == ScriptableScene.position.mid)
+            {
+                yield return StartCoroutine(move(speakerTwo, midpoint));
+            }
+
+            //anim
+            if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
+            {
+                StartCoroutine(animateJump(speakerTwo));
+            }
+            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
+            {
+                StartCoroutine(animateShake(speakerTwo));
+            }
+
             //running text loop
             for (int i = 0; i < dialogueTextStr.Length; i++)
             {
@@ -288,32 +233,91 @@ public class BottomController : MonoBehaviour
             }
             displayText = "";
             GameManager.Instance.state = GameState.Standby;
-            animationTwo.ResetTrigger("Entry");
-            animationTwo.ResetTrigger("Shake");
-            animationTwo.ResetTrigger("Jump");
-            animationTwo.ResetTrigger("Exited");
-            animationTwo.ResetTrigger("Out");
         }
     }
 
-    // void move(Image gambar,GameObject TargetPos)
-    // {
-    //     RectTransform rect = gambar.GetComponent<RectTransform>();
-    //         Vector2 target = TargetPos.GetComponent<RectTransform>().anchoredPosition;
+    IEnumerator animateJump(Image target)
+    {
+        yield return null;
+        //saving original and desired Position
+        RectTransform rect = target.gameObject.GetComponent<RectTransform>();
+        Vector2 original = rect.anchoredPosition;
+        Vector2 peak = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 100);
+        float time = 0;
+        while (time < JumpingDuration)
+        {
+            //setting up curve
+            time += Time.deltaTime;
+            float normalizedTime = time / JumpingDuration;
+            float curveValue = JumpingCurved.Evaluate(normalizedTime);
 
-    // while (Vector2.Distance(rect.anchoredPosition, target) > 0.1f)
-    // {
-    //     Vector2 currentPos = Vector2.Lerp(rect.anchoredPosition, target, 0.5f);
-    //     rect.anchoredPosition = currentPos;
-    // }
-    // rect.anchoredPosition = target;
-    // }
+            rect.anchoredPosition = Vector2.Lerp(original, peak, curveValue);
+            yield return null;
+        }
+        rect.anchoredPosition = original;
+    }
+    IEnumerator animateShake(Image target)
+    {
+        yield return null;
+        //saving original and desired Position
+        RectTransform rect = target.gameObject.GetComponent<RectTransform>();
+        Vector2 original = rect.anchoredPosition;
+        Vector2 peakLeft = new Vector2(rect.anchoredPosition.x - 100, rect.anchoredPosition.y);
+        Vector2 peakRight = new Vector2(rect.anchoredPosition.x + 100, rect.anchoredPosition.y);
+        float time = 0;
+
+        while (time < ShakeDuration)
+        {
+            //setting up curve
+            time += Time.deltaTime;
+            float normalizedTime = time / ShakeDuration;
+            float curveValue = JumpingCurved.Evaluate(normalizedTime);
+
+            float offset = Mathf.Lerp(-50f, 50f, curveValue);
+            rect.anchoredPosition = new Vector2(original.x + offset, original.y);
+            yield return null;
+        }
+        //lerp back into the position
+        float returnTime = 0;
+        float returnDuration = 0.2f;
+        Vector2 currentPos = rect.anchoredPosition;
+        while (returnTime < returnDuration)
+        {
+            returnTime += Time.deltaTime;
+            float t = returnTime / returnDuration;
+            rect.anchoredPosition = Vector2.Lerp(currentPos, original, t);
+            yield return null;
+        }
+    }
+
+    IEnumerator move(Image gambar, GameObject TargetPos)
+    {
+        RectTransform rect = gambar.GetComponent<RectTransform>();
+        Vector2 startPos = rect.anchoredPosition;
+        Vector2 targetPos = TargetPos.GetComponent<RectTransform>().anchoredPosition;
+
+        float time = 0;
+        float duration = 0.5f;
+
+        Debug.Log($"Gerak dari {startPos} ke {targetPos}");
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+
+            // Pakai t yang bersih (0 sampai 1)
+            rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+
+            yield return null;
+        }
+        rect.anchoredPosition = targetPos;
+        yield return null;
+    }
+
     void Start()
-    {      
+    {
         nameText.SetText(scene.scenes[0].pembicara.Name);
         GameManager.Instance.state = GameState.Running;
-        animationOne = speakerOne.GetComponent<Animator>();
-        animationTwo = speakerTwo.GetComponent<Animator>();
         runningtext = StartCoroutine(runningText(0));
     }
 }

@@ -33,7 +33,7 @@ MonoBehaviour:
   - Dialogue: Halo pak Cahyono, bapak sehat?
     pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
     Ekspresi: 0
-    anim: 0
+    anim: 3
     isMainSpeaker: 1
     secondVisible: 0
     mainVisible: 1
@@ -49,7 +49,7 @@ MonoBehaviour:
   - Dialogue: Waduh Sedih kenapa bapak?
     pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
     Ekspresi: 0
-    anim: 2
+    anim: 3
     isMainSpeaker: 1
     secondVisible: 1
     mainVisible: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
   - Dialogue: Kambing bapak abis dicuri bapak mu.
     pembicara: {fileID: 11400000, guid: ffd00b4caa7ba62408bb94f4a3837813, type: 2}
     Ekspresi: 0
-    anim: 0
+    anim: 3
     isMainSpeaker: 0
     secondVisible: 1
     mainVisible: 1
@@ -65,7 +65,7 @@ MonoBehaviour:
   - Dialogue: Hah? tapi bapakku udah ngilang pak TvT
     pembicara: {fileID: 11400000, guid: 30677a649914b874e83e13843c5ffb53, type: 2}
     Ekspresi: 0
-    anim: 1
+    anim: 3
     isMainSpeaker: 1
     secondVisible: 1
     mainVisible: 1
