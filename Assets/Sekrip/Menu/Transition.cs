@@ -23,11 +23,13 @@ public class Transition : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         StartCoroutine(Transitioning(Type.fade, sceneName));
-    }    public void SlideLeftNext(string sceneName)
+    }   
+    public void SlideLeftNext(string sceneName)
     {
         this.gameObject.SetActive(true);
         StartCoroutine(Transitioning(Type.left, sceneName));
-    }    public void SlideRightNext(string sceneName)
+    }   
+    public void SlideRightNext(string sceneName)
     {
         this.gameObject.SetActive(true);
         StartCoroutine(Transitioning(Type.right, sceneName));
