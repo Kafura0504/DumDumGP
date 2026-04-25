@@ -2,21 +2,21 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class inventory : MonoBehaviour
+//honestly its self explainatory
+public class Inventory : MonoBehaviour
 {
-    public items itemObject;
-    public GameObject gridPrefab;
+    public Items[] itemObject;
+    public GameObject gridPrefab;//morelike item prefab
     public Transform grid;
     public ScrollRect scroll;
 
     void SetItemToInventory()
     {
-        foreach (var item in itemObject.itemObject)
+        foreach (var item in itemObject)
         {
-            if (!item.playerHasItem) continue;
+            if (!item.playerHasItem) continue; //TEMP
             GameObject obj = Instantiate(gridPrefab, grid);
-            var slot = obj.GetComponent<ItemTemplate>();
+            var slot = obj.GetComponent<ItemTemplate>();//ItemTemplate.cs
             slot.setup(item);
         }
     }
@@ -24,7 +24,7 @@ public class inventory : MonoBehaviour
     IEnumerator Reset()
     {
         yield return null;
-        scroll.verticalNormalizedPosition = 1f;
+        scroll.verticalNormalizedPosition = 1f;//reset scroll pos on populate
     }
 
     void Start()

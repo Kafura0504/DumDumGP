@@ -3,13 +3,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
-public class Menu : MonoBehaviour
+public class OpenInventory : MonoBehaviour
 {
     [Header("Control input")]
     public InputActionReference input;
     private bool isOpen;
-
-    private GameState state;
 
     void clicked(InputAction.CallbackContext ctx)
     {
@@ -17,13 +15,13 @@ public class Menu : MonoBehaviour
         {
             SceneManager.LoadSceneAsync("inventory", LoadSceneMode.Additive);
             isOpen = true;
-            state = GameState.Paused;
+            GameManager.Instance.state = GameState.Paused;
         }
         else
         {
             SceneManager.UnloadSceneAsync("inventory");
             isOpen = false;
-            state = GameState.Standby;
+            GameManager.Instance.state = GameState.Standby;
         }
     }
 
