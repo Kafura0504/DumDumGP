@@ -210,7 +210,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 3001919216989983466, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   textspeed: 0.0346
-  scene: {fileID: 11400000, guid: 04a967161137d2d4b9ccf8410cf37139, type: 2}
+  scene: {fileID: 11400000, guid: 75744f08d2d0be042bcc1d29ed4c6708, type: 2}
   Bottombar: {fileID: 1955487601}
   nameText: {fileID: 230560605}
   DialogueText: {fileID: 73007449}

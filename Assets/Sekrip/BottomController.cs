@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
 
 public class BottomController : MonoBehaviour
 {
@@ -89,15 +87,6 @@ public class BottomController : MonoBehaviour
         //is main speaker
         if (scene.scenes[index].isMainSpeaker)
         {
-            //set positioning
-            if (scene.scenes[index].secondVisible)
-            {
-                speakerTwo.gameObject.SetActive(true); //set active the one who enter the convo
-            }
-            else if (!scene.scenes[index].secondVisible)
-            {
-                speakerTwo.gameObject.SetActive(false); //set deactive the one who left the convo
-            }
             speakerTwo.color = new Color(0.5f, 0.5f, 0.5f); //delighting the one who doesn't talk
             speakerOne.color = new Color(1f, 1f, 1f); //highlighting the one talking
 
@@ -165,14 +154,6 @@ public class BottomController : MonoBehaviour
         else if (!scene.scenes[index].isMainSpeaker)
         {
             //set positioning
-            if (scene.scenes[index].secondVisible)
-            {
-                speakerTwo.gameObject.SetActive(true);
-            }
-            else if (!scene.scenes[index].secondVisible)
-            {
-                speakerTwo.gameObject.SetActive(false);
-            }
             speakerOne.color = new Color(0.5f, 0.5f, 0.5f);
             speakerTwo.color = new Color(1f, 1f, 1f);
 
@@ -305,7 +286,6 @@ public class BottomController : MonoBehaviour
             time += Time.deltaTime;
             float t = time / duration;
 
-            // Pakai t yang bersih (0 sampai 1)
             rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
             yield return null;
@@ -320,4 +300,5 @@ public class BottomController : MonoBehaviour
         GameManager.Instance.state = GameState.Running;
         runningtext = StartCoroutine(runningText(0));
     }
+
 }
