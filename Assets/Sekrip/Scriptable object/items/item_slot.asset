@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5edc7ca737c9a2146a68a80e09c11607, type: 3}
-  m_Name: An Iten
+  m_Name: item_slot
   m_EditorClassIdentifier: 
-  Name: wefrgthyjui
-  Description: ',mjh bvcxz'
-  id: 1
-  sprite: {fileID: 6085869720761934544, guid: 36aadafddf052b648ad4b30aa31555de, type: 3}
+  Name: 
+  Description: 
+  id: 0
+  sprite: {fileID: 0}

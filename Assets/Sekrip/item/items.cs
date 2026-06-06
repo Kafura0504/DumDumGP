@@ -7,6 +7,6 @@ public class Items : ScriptableObject
         public String Name;
         [TextArea]
         public String Description;
-        public bool playerHasItem;
+        public int id;
         public Sprite sprite;
 }

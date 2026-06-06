@@ -1,22 +1,19 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemTemplate : MonoBehaviour, IPointerClickHandler
+public class PointOfIntrest : MonoBehaviour, IPointerClickHandler
 {
     public Items itemData;
     [SerializeField] private Image icon;
-    [SerializeField] private Image largeIcon;
-    [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text descript;
+    public bool deleteAftrClk;
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        largeIcon.sprite = itemData.sprite;
-        nameText.text = itemData.Name;
-        descript.text = itemData.Description;
+        Inventory.Instance.Insert(ItemDB.Instance.GetItems(itemData.id));//stupidly overcomplicated, it can be literally itemdata
+        if (deleteAftrClk)
+            Destroy(this.gameObject);
     }
     public void Setup(Items item)
     {

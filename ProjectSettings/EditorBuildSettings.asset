@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestMainMenuGameParent.unity
     guid: b1194cabc491a4943b90bd12c06a4d1a
+  - enabled: 0
+    path: Assets/Scenes/TestMainGame.unity
+    guid: 1826bb37a4eb38245a6a9588976245a6
   - enabled: 1
     path: Assets/Scenes/for kafu.unity
     guid: 2a223915f6d5c184c8f5ac3ac4c6fcb1

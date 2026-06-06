@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Transition : MonoBehaviour
@@ -23,12 +24,12 @@ public class Transition : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         StartCoroutine(Transitioning(Type.fade, sceneName));
-    }   
+    }
     public void SlideLeftNext(string sceneName)
     {
         this.gameObject.SetActive(true);
         StartCoroutine(Transitioning(Type.left, sceneName));
-    }   
+    }
     public void SlideRightNext(string sceneName)
     {
         this.gameObject.SetActive(true);
@@ -37,6 +38,7 @@ public class Transition : MonoBehaviour
 
     public IEnumerator Transitioning(Type transtype, string nextScene)
     {
+        GameManager.Instance.state = GameState.Paused;
         if (transtype == Type.left || transtype == Type.right)
         {
             Vector2 thisPos = this.gameObject.transform.position;
@@ -46,6 +48,8 @@ public class Transition : MonoBehaviour
             switch (transtype)
             {
                 case Type.left:
+                    transFinishedNLoaded = false;
+                    GameManager.Instance.state = GameState.Paused;
 
                     //enter
                     startPos = new(thisPos.x + screenSize.x, thisPos.y);
@@ -53,6 +57,8 @@ public class Transition : MonoBehaviour
                     thisCanvas.sortingOrder = 100; //hide childscene while being loaded
 
                     //do something
+                    SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+                    MainMenu.SetActive(false);
 
                     //exit
                     yield return new WaitForSeconds(0.5f);
@@ -62,10 +68,15 @@ public class Transition : MonoBehaviour
                     //reset
                     thisCanvas.sortingOrder = 0;
                     this.gameObject.SetActive(false);
-                    this.gameObject.transform.position = screenSize/2;
+                    this.gameObject.transform.position = screenSize / 2;
+                    yield return new WaitForSeconds(0.8f);
+                    GameManager.Instance.state = GameState.Standby;
+                    transFinishedNLoaded = true;
                     break;
 
                 case Type.right:
+                    transFinishedNLoaded = false;
+                    GameManager.Instance.state = GameState.Paused;
 
                     //enter
                     startPos = new(thisPos.x - screenSize.x, thisPos.y);
@@ -73,6 +84,8 @@ public class Transition : MonoBehaviour
                     thisCanvas.sortingOrder = 100; //hide childscene while being loaded
 
                     //do something
+                    SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+                    MainMenu.SetActive(false);
 
                     //exit
                     yield return new WaitForSeconds(0.5f);
@@ -82,17 +95,24 @@ public class Transition : MonoBehaviour
                     //reset
                     thisCanvas.sortingOrder = 0;
                     this.gameObject.SetActive(false);
-                    this.gameObject.transform.position = screenSize/2;
+                    this.gameObject.transform.position = screenSize / 2;
+                    yield return new WaitForSeconds(0.8f);
+                    GameManager.Instance.state = GameState.Standby;
+                    transFinishedNLoaded = true;
                     break;
             }
         }
         else
-        {   
+        {
+            transFinishedNLoaded = false;
+            GameManager.Instance.state = GameState.Paused;
             //enter
             yield return ImFaded(0f, 1f);
             thisCanvas.sortingOrder = 100; //hide childscene while being loaded
 
             //do somthing
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+            MainMenu.SetActive(false);
 
             //exit
             yield return new WaitForSeconds(0.5f);
@@ -105,8 +125,13 @@ public class Transition : MonoBehaviour
             Color transparent = opacity.color;
             transparent.a = 1f;
             opacity.color = transparent;
+            yield return new WaitForSeconds(0.8f);
+            GameManager.Instance.state = GameState.Standby;
+            transFinishedNLoaded = true;
         }
         yield return new WaitForSeconds(0.1f);
+        GameManager.Instance.state = GameState.Standby;
+        transFinishedNLoaded = true;
     }
     IEnumerator NextSlide(Vector2 start, Vector2 end)
     {
@@ -115,29 +140,29 @@ public class Transition : MonoBehaviour
         while (time < duration)
         {
             time += Time.deltaTime;
-            float tick = time/duration;
+            float tick = time / duration;
             this.gameObject.transform.position = Vector2.Lerp(start, end, tick);
             yield return null;
         }
-        
+
         this.gameObject.transform.position = end;
     }
     IEnumerator ImFaded(float start, float end)
     {
-        
-            opacity = this.gameObject.GetComponent<Image>();
-            Color transparent = opacity.color;
-            transparent.a = start;
-            float setAlpha = transparent.a;
-            float time = 0f;
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-                float tick = time/duration;
-                transparent.a = Mathf.Lerp(setAlpha, end, tick);
-                opacity.color = transparent;
-                yield return null;
-            }
+
+        opacity = this.gameObject.GetComponent<Image>();
+        Color transparent = opacity.color;
+        transparent.a = start;
+        float setAlpha = transparent.a;
+        float time = 0f;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float tick = time / duration;
+            transparent.a = Mathf.Lerp(setAlpha, end, tick);
+            opacity.color = transparent;
+            yield return null;
+        }
     }
 
 }

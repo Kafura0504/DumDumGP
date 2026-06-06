@@ -27,7 +27,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -492,7 +492,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -501,7 +501,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -992,13 +992,13 @@
             ]
         },
         {
-            "name": "TestMenu",
-            "id": "41e479aa-2c09-463e-ad5b-13b94c066611",
+            "name": "mainmenu",
+            "id": "2edb942b-f0b1-4023-9a63-3034f84c05dd",
             "actions": [
                 {
-                    "name": "Inventory_TEMP",
+                    "name": "inventory",
                     "type": "Button",
-                    "id": "f601e9ac-9b56-4393-bfe6-83b7d77fbdab",
+                    "id": "490d63ac-1dcc-4a8c-a543-6911d376a214",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1008,23 +1008,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "fcbcfe37-822c-4386-89b0-df84429af7db",
+                    "id": "1cbd0482-c284-4685-8b1c-901190edae62",
                     "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Inventory_TEMP",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fe0c3e94-eacb-4a16-8186-c683cf02700b",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Inventory_TEMP",
+                    "action": "inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,36 +1,36 @@
-using System.Collections;
-using TMPro;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-//honestly its self explainatory
+using UnityEngine.Rendering;
 public class Inventory : MonoBehaviour
 {
-    public Items[] itemObject;
-    public GameObject gridPrefab;//morelike item prefab
-    public Transform grid;
-    public ScrollRect scroll;
+    public static Inventory Instance;
+    public List<Items> itemObject = null;
+    public event Action OnChange;
 
-    void SetItemToInventory()
+    public void Insert(Items item)
     {
-        foreach (var item in itemObject)
+        if (!itemObject.Contains(item))
+            itemObject.Add(item);
+        OnChange?.Invoke();
+    }
+    public void Remove(Items item)
+    {
+        if (itemObject.Contains(item))
+            itemObject.Remove(item);
+        OnChange?.Invoke();
+    }
+
+    void Awake()
+    {
+
+        if (Instance != null && Instance != this)
         {
-            if (!item.playerHasItem) continue; //TEMP
-            GameObject obj = Instantiate(gridPrefab, grid);
-            var slot = obj.GetComponent<ItemTemplate>();//ItemTemplate.cs
-            slot.setup(item);
+            Destroy(this.gameObject);
+            return;
         }
-    }
 
-    IEnumerator Reset()
-    {
-        yield return null;
-        scroll.verticalNormalizedPosition = 1f;//reset scroll pos on populate
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
-
-    void Start()
-    {
-        SetItemToInventory();
-        StartCoroutine(Reset());
-    }
-
 }

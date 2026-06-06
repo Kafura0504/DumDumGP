@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: wefrgthyjui
   Description: ',mjh bvcxz'
-  playerHasItem: 1
+  id: 2
   sprite: {fileID: 97568677871107278, guid: 02465b28f69f7464585bbaa8c6ccc803, type: 3}
