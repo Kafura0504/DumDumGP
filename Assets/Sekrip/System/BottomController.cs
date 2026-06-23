@@ -34,16 +34,32 @@ public class BottomController : MonoBehaviour
     public float ShakeDuration;
     public AnimationCurve ShakeCurved;
 
+    private LoadMapData loader;
+
+    public static event Action done;
+
     void clicked(InputAction.CallbackContext ctx)
     {
         //this will run when you press Mouse btn 1
         if (GameManager.Instance.state == GameState.Standby)
         {
-            DialogueText.SetText(""); //reset text dialogue
             dialogueIndex++; //add index
-            Debug.Log(dialogueIndex); //just siwwy wittle debug
+            DialogueText.SetText(""); //reset text dialogue
+            if (dialogueIndex >= scene.scenes.Length)
+            {
+                dialogueIndex = 0;
+                DialogueText.SetText("");
+
+                if (scene.Exploration)
+                {
+                    loader.data = scene.mapData;
+                    loader.enabled = true;
+                    gameObject.SetActive(false);
+                    done?.Invoke();
+                }
+                return;
+            }
             runningtext = StartCoroutine(runningText(dialogueIndex)); //start coroutine
-            Debug.Log(runningtext);
         }
         else if (GameManager.Instance.state == GameState.Running)
         {
@@ -52,11 +68,17 @@ public class BottomController : MonoBehaviour
             displayText = ""; //reset variable
             GameManager.Instance.state = GameState.Standby; //reset game state
         }
+
+        
     }
     public void OnEnable()
     {
         input.action.started += clicked;
         input.action.Enable();
+        //start the running text
+        nameText.SetText(scene.scenes[0].pembicara.Name);
+        GameManager.Instance.state = GameState.Running;
+        runningtext = StartCoroutine(runningText(0));
     }
     public void OnDisable()
     {
@@ -137,17 +159,6 @@ public class BottomController : MonoBehaviour
             {
                 StartCoroutine(animateShake(speakerOne));
             }
-
-            //running text loop
-            for (int i = 0; i < dialogueTextStr.Length; i++)
-            {
-                displayText += dialogueTextStr[i];
-                DialogueText.SetText(displayText);
-                yield return new WaitForSeconds(textspeed);
-            }
-            //reset everything
-            displayText = "";
-            GameManager.Instance.state = GameState.Standby;
         }
 
         //kalo bukan main speaker
@@ -204,7 +215,8 @@ public class BottomController : MonoBehaviour
             {
                 StartCoroutine(animateShake(speakerTwo));
             }
-
+            
+        }
             //running text loop
             for (int i = 0; i < dialogueTextStr.Length; i++)
             {
@@ -214,7 +226,6 @@ public class BottomController : MonoBehaviour
             }
             displayText = "";
             GameManager.Instance.state = GameState.Standby;
-        }
     }
 
     IEnumerator animateJump(Image target)
@@ -296,9 +307,7 @@ public class BottomController : MonoBehaviour
 
     void Start()
     {
-        nameText.SetText(scene.scenes[0].pembicara.Name);
-        GameManager.Instance.state = GameState.Running;
-        runningtext = StartCoroutine(runningText(0));
+        loader = GetComponentInParent<LoadMapData>();       
     }
 
 }

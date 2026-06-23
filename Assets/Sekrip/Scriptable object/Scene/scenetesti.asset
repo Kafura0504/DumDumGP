@@ -46,4 +46,8 @@ MonoBehaviour:
     mainVisible: 1
     Position: 1
   Background: {fileID: -5818016223381332099, guid: 59c0fd1673605e44184742db893f711b, type: 3}
-  nextScene: {fileID: 0}
+  nextScene: 0
+  theNextScene: {fileID: 0}
+  Exploration: 1
+  mapData: {fileID: 11400000, guid: e6dd18f47ff1f1a41b94b62ecca5d28a, type: 2}
+  selection: 0

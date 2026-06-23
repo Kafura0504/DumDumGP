@@ -1,10 +1,10 @@
 using System;
-using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(menuName ="My Assets/NewScene", fileName ="New scene")]
 public class ScriptableScene : ScriptableObject
 {
+    #region Enum
     public enum ekspresi
     {
         normal,
@@ -28,6 +28,8 @@ public class ScriptableScene : ScriptableObject
         right,
         mid
     }
+    #endregion
+    #region Struct Adegan
     [System.Serializable]
     public struct adegan
     {
@@ -42,8 +44,17 @@ public class ScriptableScene : ScriptableObject
         public bool mainVisible; //is main speaker visible?
         public position Position; //position of the image
     }
+    #endregion
     public adegan[] scenes; //the list of scene
     public Sprite Background; //self explanatory
-    public ScriptableScene nextScene; //next scene
-    
+
+    [Header("Choose One")]
+    [Header("If there is Next Scene")]
+    public bool nextScene;
+    public ScriptableScene theNextScene; //next scene
+    [Header("if next is back to exploration")]
+    public bool Exploration;
+    public MapData mapData;
+    [Header("If Next is selection Scene")]
+    public bool selection;
 }
