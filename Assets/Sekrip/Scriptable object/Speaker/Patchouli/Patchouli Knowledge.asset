@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e987c18b1da44bb4cb50c18876e10d1d, type: 3}
+  m_Name: Patchouli Knowledge
+  m_EditorClassIdentifier: 
+  Name: Patchouli
+  color: {r: 0, g: 0, b: 0, a: 0}
+  ekspresi:
+    Normal: {fileID: 4606157284126940538, guid: 569fce49c45327b4aa9fa549c7bfad46, type: 3}
+    terrified: {fileID: 1075749578562686303, guid: 3e8f28d9ff7b31d4fbc412f2971585ea, type: 3}
+    Cautious: {fileID: 5767058898976193538, guid: 3961941ab9528d242959c70184ef36a0, type: 3}
+    relieved: {fileID: 83179573037407379, guid: b8dc74674bc338a489658e59e5fde2a2, type: 3}

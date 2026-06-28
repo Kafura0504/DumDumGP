@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1fd913529895d4b8b2654b9d351562, type: 3}
+  m_Name: Hutan Peri Tohok
+  m_EditorClassIdentifier: 
+  audio: {fileID: 0}
+  scenes:
+  - Dialogue: Orang itu ga ngejar kan?
+    pembicara: {fileID: 11400000, guid: 01f2708a4640d5241b29a96d179c9a28, type: 2}
+    Ekspresi: 3
+    anim: 0
+    isMainSpeaker: 1
+    secondVisible: 0
+    mainVisible: 1
+    Position: 2
+  - Dialogue: Yang tidak diketahui marisa, dibelakangnya sudah ada seseorang
+    pembicara: {fileID: 11400000, guid: 5834141bd76ebd04d98165f0b6364c65, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 0
+    mainVisible: 0
+    Position: 2
+  - Dialogue: Hayo Mau lari kemana?
+    pembicara: {fileID: 11400000, guid: 569bdee881839f84a87bc7621db2e686, type: 2}
+    Ekspresi: 2
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 1
+    mainVisible: 1
+    Position: 0
+  - Dialogue: WAHHH
+    pembicara: {fileID: 11400000, guid: 01f2708a4640d5241b29a96d179c9a28, type: 2}
+    Ekspresi: 1
+    anim: 1
+    isMainSpeaker: 1
+    secondVisible: 1
+    mainVisible: 1
+    Position: 2
+  Background: {fileID: 8273650878549090882, guid: 259851a03638a1047928688369b8f7da, type: 3}
+  nextScene: 0
+  theNextScene: {fileID: 0}
+  Exploration: 0
+  mapData: {fileID: 0}
+  selection: 0
+  selectionData: {fileID: 0}

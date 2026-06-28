@@ -5,6 +5,8 @@ public class LoadMapData : MonoBehaviour
 {
     [Header("MapData")]
     public MapData data;
+    [Header("Scene data")]
+    public ScriptableScene scene;
     [Header("Place Holder NPC Location")]
     public RectTransform Left;
     public RectTransform Mid;
@@ -12,11 +14,37 @@ public class LoadMapData : MonoBehaviour
     [Header("NPC Game Object")]
     public Image NpcOne;
     public Image NpcTwo;
+    public GameObject bottombar;
     [Header("Baground")]
     public Image Background;
 
     void OnEnable()
     {
+        if (scene != null && data != null)
+        {
+            Debug.LogError("Just put one Scriptable data to load the scene");
+            return;
+        }
+
+        if (data == null)
+        {
+            NpcOne.gameObject.SetActive(false);
+            NpcTwo.gameObject.SetActive(false);
+            BottomController controller = bottombar.GetComponent<BottomController>();
+            controller.scene = scene;
+            bottombar.SetActive(true);
+            
+            if (scene.audio != null)
+            {    
+            GameManager.Instance.Aud.clip = scene.audio;
+            GameManager.Instance.Aud.Play();
+            }
+
+            this.enabled = false;
+            return;
+        }
+
+        bottombar.SetActive(false);
         Background.sprite = data.Background;
         if (data.NpcOne)
         {
@@ -106,15 +134,8 @@ public class LoadMapData : MonoBehaviour
         {
             NpcTwo.gameObject.SetActive(false);
         }
-    }
-    void Awake() //ini ditaro di OnEnable. kucontohin di Awake soalnya OnEnable udah dipake yang lain
-    {
-        BottomController.done += awikwok;
-    }   
 
-    void awikwok()
-    {
-        //ini code yang dieksekusi kalau sudah done
-        Debug.Log("Sudah Done Mas");
+        GameManager.Instance.Aud.clip = data.BGM;
+        GameManager.Instance.Aud.Play();
     }
 }

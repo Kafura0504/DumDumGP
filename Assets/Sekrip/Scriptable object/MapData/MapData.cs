@@ -30,4 +30,5 @@ public class MapData : ScriptableObject
     public Speaker speakerTwo;
     public ekspresi speakerTwoExpression;
     public position speakerTwoPosition;
+    public AudioClip BGM;
 }

@@ -18,11 +18,12 @@ public class BottomController : MonoBehaviour
     private string displayText;
     private Coroutine runningtext;
     [Header("UI Element")]
-    public GameObject Bottombar;
+    public GameObject selectionBar;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI DialogueText;
     public Image speakerOne;
     public Image speakerTwo;
+    public Image Background;
     [Header("position refference")]
     public GameObject leftpoint;
     public GameObject midpoint;
@@ -33,9 +34,10 @@ public class BottomController : MonoBehaviour
     public AnimationCurve JumpingCurved;
     public float ShakeDuration;
     public AnimationCurve ShakeCurved;
-
+    
+    //Private
     private LoadMapData loader;
-
+    public SelectionSystem[] Selections;
     public static event Action done;
 
     void clicked(InputAction.CallbackContext ctx)
@@ -53,9 +55,22 @@ public class BottomController : MonoBehaviour
                 if (scene.Exploration)
                 {
                     loader.data = scene.mapData;
+                    loader.scene = null;
                     loader.enabled = true;
                     gameObject.SetActive(false);
                     done?.Invoke();
+                }
+                else if (scene.nextScene)
+                {
+                    scene = scene.theNextScene;
+                    nameText.SetText(scene.scenes[0].pembicara.Name);
+                    Background.sprite = scene.Background;
+                    GameManager.Instance.state = GameState.Running;
+                    runningtext = StartCoroutine(runningText(0));
+                }
+                else if(scene.selection)
+                {
+                    
                 }
                 return;
             }
@@ -77,6 +92,7 @@ public class BottomController : MonoBehaviour
         input.action.Enable();
         //start the running text
         nameText.SetText(scene.scenes[0].pembicara.Name);
+        Background.sprite = scene.Background;
         GameManager.Instance.state = GameState.Running;
         runningtext = StartCoroutine(runningText(0));
     }
@@ -86,146 +102,40 @@ public class BottomController : MonoBehaviour
         input.action.Disable();
     }
 
-    IEnumerator runningText(int index)
+    void setInvis(GameObject speaker)
     {
-        //set visibility
-        if (scene.scenes[index].secondVisible)
-        {
-            speakerTwo.gameObject.SetActive(true);
-        }
-        else if (!scene.scenes[index].secondVisible)
-        {
-            speakerTwo.gameObject.SetActive(false);
-        }
-        if (scene.scenes[index].mainVisible)
-        {
-            speakerOne.gameObject.SetActive(true);
-        }
-        else if (!scene.scenes[index].mainVisible)
-        {
-            speakerOne.gameObject.SetActive(false);
-        }
+        speaker.SetActive(false);
+    }
 
-        //is main speaker
-        if (scene.scenes[index].isMainSpeaker)
-        {
-            speakerTwo.color = new Color(0.5f, 0.5f, 0.5f); //delighting the one who doesn't talk
-            speakerOne.color = new Color(1f, 1f, 1f); //highlighting the one talking
+    void setVisible(GameObject speaker)
+    {
+        speaker.SetActive(true);
+    }
 
-            //setting up Stuff
-            GameManager.Instance.state = GameState.Running; //make the game know the text still running
-            displayText = ""; //reseting display text
-            dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
-            nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
+    void setcolor(Image TheSpeaking, Image TheSilent)
+    {
+        TheSpeaking.color = new Color(1f, 1f, 1f);
+        TheSilent.color =new Color(0.5f, 0.5f, 0.5f);
+    }
 
-            //settin image based on expression
-            if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.normal)
+    void setExpression(Image speaker, int index)
+    {
+        if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.normal)
             {
-                speakerOne.sprite = scene.scenes[index].pembicara.ekspresi.Normal; //makes the speaker look normal in her/his normal expression
+                speaker.sprite = scene.scenes[index].pembicara.ekspresi.Normal; //makes the speaker look normal in her/his normal expression
             }
             else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.terrified)
             {
-                speakerOne.sprite = scene.scenes[index].pembicara.ekspresi.terrified; //make the speaker terrified
+                speaker.sprite = scene.scenes[index].pembicara.ekspresi.terrified; //make the speaker terrified
             }
             else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.relieved)
             {
-                speakerOne.sprite = scene.scenes[index].pembicara.ekspresi.relieved; //make the speaker relieved
+                speaker.sprite = scene.scenes[index].pembicara.ekspresi.relieved; //make the speaker relieved
             }
             else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.cautious)
             {
-                speakerOne.sprite = scene.scenes[index].pembicara.ekspresi.Cautious; // make the speaker cautious
+                speaker.sprite = scene.scenes[index].pembicara.ekspresi.Cautious; // make the speaker cautious
             }
-
-            //movde the gameobject to the location
-            if (scene.scenes[index].Position == ScriptableScene.position.left)
-            {
-                yield return StartCoroutine(move(speakerOne, leftpoint));
-            }
-            else if (scene.scenes[index].Position == ScriptableScene.position.right)
-            {
-                yield return StartCoroutine(move(speakerOne, rightpoint));
-            }
-            if (scene.scenes[index].Position == ScriptableScene.position.mid)
-            {
-                yield return StartCoroutine(move(speakerOne, midpoint));
-            }
-
-            //anim
-            if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
-            {
-                StartCoroutine(animateJump(speakerOne));
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
-            {
-                StartCoroutine(animateShake(speakerOne));
-            }
-        }
-
-        //kalo bukan main speaker
-        else if (!scene.scenes[index].isMainSpeaker)
-        {
-            //set positioning
-            speakerOne.color = new Color(0.5f, 0.5f, 0.5f);
-            speakerTwo.color = new Color(1f, 1f, 1f);
-
-            //setting up Stuff
-            GameManager.Instance.state = GameState.Running; //make the game know the text still running
-            displayText = ""; //reseting display text
-            dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
-            nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
-
-            //settin image based on expression
-            if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.normal)
-            {
-                speakerTwo.sprite = scene.scenes[index].pembicara.ekspresi.Normal; //makes the speaker look normal in her/his normal expression
-            }
-            else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.terrified)
-            {
-                speakerTwo.sprite = scene.scenes[index].pembicara.ekspresi.terrified; //make the speaker terrified
-            }
-            else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.relieved)
-            {
-                speakerTwo.sprite = scene.scenes[index].pembicara.ekspresi.relieved; //make the speaker relieved
-            }
-            else if (scene.scenes[index].Ekspresi == ScriptableScene.ekspresi.cautious)
-            {
-                speakerTwo.sprite = scene.scenes[index].pembicara.ekspresi.Cautious; // make the speaker cautious
-            }
-
-            //movde the gameobject to the location
-            if (scene.scenes[index].Position == ScriptableScene.position.left)
-            {
-                yield return StartCoroutine(move(speakerTwo, leftpoint));
-            }
-            else if (scene.scenes[index].Position == ScriptableScene.position.right)
-            {
-                yield return StartCoroutine(move(speakerTwo, rightpoint));
-            }
-            if (scene.scenes[index].Position == ScriptableScene.position.mid)
-            {
-                yield return StartCoroutine(move(speakerTwo, midpoint));
-            }
-
-            //anim
-            if (scene.scenes[index].anim == ScriptableScene.animasi.jump)
-            {
-                StartCoroutine(animateJump(speakerTwo));
-            }
-            else if (scene.scenes[index].anim == ScriptableScene.animasi.shake)
-            {
-                StartCoroutine(animateShake(speakerTwo));
-            }
-            
-        }
-            //running text loop
-            for (int i = 0; i < dialogueTextStr.Length; i++)
-            {
-                displayText += dialogueTextStr[i];
-                DialogueText.SetText(displayText);
-                yield return new WaitForSeconds(0.01f);
-            }
-            displayText = "";
-            GameManager.Instance.state = GameState.Standby;
     }
 
     IEnumerator animateJump(Image target)
@@ -254,8 +164,6 @@ public class BottomController : MonoBehaviour
         //saving original and desired Position
         RectTransform rect = target.gameObject.GetComponent<RectTransform>();
         Vector2 original = rect.anchoredPosition;
-        Vector2 peakLeft = new Vector2(rect.anchoredPosition.x - 100, rect.anchoredPosition.y);
-        Vector2 peakRight = new Vector2(rect.anchoredPosition.x + 100, rect.anchoredPosition.y);
         float time = 0;
 
         while (time < ShakeDuration)
@@ -305,9 +213,113 @@ public class BottomController : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator MoveSpeakerToPosition(Image speaker, ScriptableScene.position position)
+    {
+        switch (position)
+        {
+            case ScriptableScene.position.left:
+                yield return StartCoroutine(move(speaker, leftpoint));
+                break;
+
+            case ScriptableScene.position.mid:
+                yield return StartCoroutine(move(speaker, midpoint));
+                break;
+
+            case ScriptableScene.position.right:
+                yield return StartCoroutine(move(speaker, rightpoint));
+                break;
+        }
+    }
+
+    void playAnimation(Image speaker, ScriptableScene.animasi anim)
+    {
+        if (anim == ScriptableScene.animasi.jump)
+            {
+                StartCoroutine(animateJump(speaker));
+            }
+            else if (anim == ScriptableScene.animasi.shake)
+            {
+                StartCoroutine(animateShake(speaker));
+            }
+    }
+
+    void visibilityChange(int index)
+    {
+        if (scene.scenes[index].secondVisible)
+        {
+            setVisible(speakerTwo.gameObject);
+        }
+        else if (!scene.scenes[index].secondVisible)
+        {
+            setInvis(speakerTwo.gameObject);
+        }
+        if (scene.scenes[index].mainVisible)
+        {
+            setVisible(speakerOne.gameObject);
+        }
+        else if (!scene.scenes[index].mainVisible)
+        {
+            setInvis(speakerOne.gameObject);
+        }
+    }
+    //THE WHOLE THING ARE HERE
+    IEnumerator runningText(int index)
+    {
+        //set visibility
+        visibilityChange(index);
+
+        //setting up Stuff
+            GameManager.Instance.state = GameState.Running; //make the game know the text still running
+            displayText = ""; //reseting display text
+            dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
+            nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
+
+        //is main speaker
+        if (scene.scenes[index].isMainSpeaker)
+        {
+            setcolor(speakerOne,speakerTwo);
+
+            //settin image based on expression
+            setExpression(speakerOne,index);
+
+            //movde the gameobject to the location
+            yield return StartCoroutine(MoveSpeakerToPosition(speakerOne, scene.scenes[index].Position));
+
+            //anim
+            playAnimation(speakerOne,scene.scenes[index].anim);
+        }
+
+        //kalo bukan main speaker
+        else if (!scene.scenes[index].isMainSpeaker)
+        {
+            //set positioning
+            setcolor(speakerTwo,speakerOne);
+
+            //settin image based on expression
+            setExpression(speakerTwo,index);
+
+            //movde the gameobject to the location
+            yield return StartCoroutine(MoveSpeakerToPosition(speakerTwo, scene.scenes[index].Position));
+
+            //anim
+            playAnimation(speakerTwo,scene.scenes[index].anim);
+            
+        }
+            //running text loop
+            for (int i = 0; i < dialogueTextStr.Length; i++)
+            {
+                displayText += dialogueTextStr[i];
+                DialogueText.SetText(displayText);
+                yield return new WaitForSeconds(textspeed);
+            }
+            displayText = "";
+            GameManager.Instance.state = GameState.Standby;
+    }
+
     void Start()
     {
-        loader = GetComponentInParent<LoadMapData>();       
+        loader = GetComponentInParent<LoadMapData>();
+        Selections = selectionBar.GetComponentsInChildren<SelectionSystem>(true);
     }
 
 }

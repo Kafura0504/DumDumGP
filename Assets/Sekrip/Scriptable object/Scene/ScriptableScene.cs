@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="My Assets/NewScene", fileName ="New scene")]
 public class ScriptableScene : ScriptableObject
 {
+    public AudioClip audio;
     #region Enum
     public enum ekspresi
     {
@@ -57,4 +58,5 @@ public class ScriptableScene : ScriptableObject
     public MapData mapData;
     [Header("If Next is selection Scene")]
     public bool selection;
+    public SelectionContent selectionData;
 }

@@ -21,3 +21,4 @@ MonoBehaviour:
   speakerTwo: {fileID: 11400000, guid: ffd00b4caa7ba62408bb94f4a3837813, type: 2}
   speakerTwoExpression: 0
   speakerTwoPosition: 2
+  BGM: {fileID: 8300000, guid: da9b56f3542036e449d612eb09fe6ea0, type: 3}

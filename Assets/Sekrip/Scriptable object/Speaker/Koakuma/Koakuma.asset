@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e987c18b1da44bb4cb50c18876e10d1d, type: 3}
+  m_Name: Koakuma
+  m_EditorClassIdentifier: 
+  Name: Koakuma
+  color: {r: 0, g: 0, b: 0, a: 0}
+  ekspresi:
+    Normal: {fileID: 9095853184155359625, guid: 54c0789e807bc264c943fade7e0c39a1, type: 3}
+    terrified: {fileID: 2729039284981837253, guid: e2a3c6af9fa361245865d95f125daa86, type: 3}
+    Cautious: {fileID: -6146375626484895344, guid: 19389319e72d87441a576159514cede6, type: 3}
+    relieved: {fileID: 83179573037407379, guid: 1c7c4406976cb1340b87ca2b7fec04d2, type: 3}

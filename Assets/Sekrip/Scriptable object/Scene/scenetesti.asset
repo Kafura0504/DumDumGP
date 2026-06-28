@@ -51,3 +51,4 @@ MonoBehaviour:
   Exploration: 1
   mapData: {fileID: 11400000, guid: e6dd18f47ff1f1a41b94b62ecca5d28a, type: 2}
   selection: 0
+  selectionData: {fileID: 0}
