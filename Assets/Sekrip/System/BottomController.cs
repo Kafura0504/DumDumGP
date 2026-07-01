@@ -37,11 +37,17 @@ public class BottomController : MonoBehaviour
     
     //Private
     private LoadMapData loader;
-    public SelectionSystem[] Selections;
+    private bool canClick = true;
+    private SelectionSystem[] Selections;
     public static event Action done;
 
     void clicked(InputAction.CallbackContext ctx)
     {
+
+        if (!canClick)
+        return;
+
+        StartCoroutine(InputCooldown());
         //this will run when you press Mouse btn 1
         if (GameManager.Instance.state == GameState.Standby)
         {
@@ -70,7 +76,24 @@ public class BottomController : MonoBehaviour
                 }
                 else if(scene.selection)
                 {
-                    
+                    GameManager.Instance.state = GameState.Choosing;
+                    for (int i = 0; i < scene.selectionData.selections.Length; i++)
+                    {
+                        if (!scene.selectionData.selections[i].isLocked || GameManager.Instance.FlagsChoice[scene.selectionData.selections[i].lockName])
+                        {    
+                        Selections[i].scene = scene.selectionData.selections[i].selectedScene;
+                        Selections[i].dialogue = scene.selectionData.selections[i].dialogue;
+                        if (scene.selectionData.selections[i].isUnlock)
+                        {
+                            Selections[i].unlockFlag = scene.selectionData.selections[i].keyName;
+                        }
+                        Selections[i].gameObject.SetActive(true);
+                        }
+                    }
+                    selectionBar.SetActive(true);
+                    canClick = true;
+                    gameObject.SetActive(false);
+                    return;
                 }
                 return;
             }
@@ -100,6 +123,12 @@ public class BottomController : MonoBehaviour
     {
         input.action.started -= clicked;
         input.action.Disable();
+    }
+    IEnumerator InputCooldown()
+    {
+        canClick = false;
+        yield return new WaitForSeconds(0.25f);
+        canClick = true;
     }
 
     void setInvis(GameObject speaker)
@@ -190,43 +219,28 @@ public class BottomController : MonoBehaviour
         }
     }
 
-    IEnumerator move(Image gambar, GameObject TargetPos)
+    void move(Image gambar, GameObject TargetPos)
     {
         RectTransform rect = gambar.GetComponent<RectTransform>();
-        Vector2 startPos = rect.anchoredPosition;
-        Vector2 targetPos = TargetPos.GetComponent<RectTransform>().anchoredPosition;
+        RectTransform targetPos = TargetPos.GetComponent<RectTransform>();
 
-        float time = 0;
-        float duration = 0.5f;
-
-        Debug.Log($"Gerak dari {startPos} ke {targetPos}");
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            float t = time / duration;
-
-            rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
-
-            yield return null;
-        }
-        rect.anchoredPosition = targetPos;
-        yield return null;
+        rect.anchoredPosition = targetPos.anchoredPosition;
     }
 
-    IEnumerator MoveSpeakerToPosition(Image speaker, ScriptableScene.position position)
+    void MoveSpeakerToPosition(Image speaker, ScriptableScene.position position)
     {
         switch (position)
         {
             case ScriptableScene.position.left:
-                yield return StartCoroutine(move(speaker, leftpoint));
+                move(speaker, leftpoint);
                 break;
 
             case ScriptableScene.position.mid:
-                yield return StartCoroutine(move(speaker, midpoint));
+                move(speaker, midpoint);
                 break;
 
             case ScriptableScene.position.right:
-                yield return StartCoroutine(move(speaker, rightpoint));
+                move(speaker, rightpoint);
                 break;
         }
     }
@@ -262,6 +276,7 @@ public class BottomController : MonoBehaviour
             setInvis(speakerOne.gameObject);
         }
     }
+
     //THE WHOLE THING ARE HERE
     IEnumerator runningText(int index)
     {
@@ -269,10 +284,10 @@ public class BottomController : MonoBehaviour
         visibilityChange(index);
 
         //setting up Stuff
-            GameManager.Instance.state = GameState.Running; //make the game know the text still running
-            displayText = ""; //reseting display text
-            dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
-            nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
+        GameManager.Instance.state = GameState.Running; //make the game know the text still running
+        displayText = ""; //reseting display text
+        dialogueTextStr = scene.scenes[index].Dialogue; //setting up placeholder variable
+        nameText.SetText(scene.scenes[index].pembicara.Name); //setting up name
 
         //is main speaker
         if (scene.scenes[index].isMainSpeaker)
@@ -283,7 +298,7 @@ public class BottomController : MonoBehaviour
             setExpression(speakerOne,index);
 
             //movde the gameobject to the location
-            yield return StartCoroutine(MoveSpeakerToPosition(speakerOne, scene.scenes[index].Position));
+            MoveSpeakerToPosition(speakerOne, scene.scenes[index].Position);
 
             //anim
             playAnimation(speakerOne,scene.scenes[index].anim);
@@ -299,7 +314,7 @@ public class BottomController : MonoBehaviour
             setExpression(speakerTwo,index);
 
             //movde the gameobject to the location
-            yield return StartCoroutine(MoveSpeakerToPosition(speakerTwo, scene.scenes[index].Position));
+            MoveSpeakerToPosition(speakerTwo, scene.scenes[index].Position);
 
             //anim
             playAnimation(speakerTwo,scene.scenes[index].anim);

@@ -9,6 +9,10 @@ public class SelectionContent : ScriptableObject
     {
         public string dialogue;
         public ScriptableScene selectedScene;
+        public bool isLocked;
+        public string lockName;
+        public bool isUnlock;
+        public string keyName;
     }
     [Header("put maximum 4 array length in this")]
     public selectionAsset[] selections;

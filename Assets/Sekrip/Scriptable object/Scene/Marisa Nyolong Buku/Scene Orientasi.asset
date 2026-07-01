@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1fd913529895d4b8b2654b9d351562, type: 3}
   m_Name: Scene Orientasi
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: da9b56f3542036e449d612eb09fe6ea0, type: 3}
   scenes:
   - Dialogue: Pada suatu hari yang  tenang di Scarlett mansion, Koakuma sedang menata
       buku di perpustakaan.

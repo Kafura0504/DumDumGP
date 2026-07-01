@@ -51,5 +51,5 @@ MonoBehaviour:
   theNextScene: {fileID: 0}
   Exploration: 0
   mapData: {fileID: 0}
-  selection: 0
-  selectionData: {fileID: 0}
+  selection: 1
+  selectionData: {fileID: 11400000, guid: c093aaaaa7f1de94faf1b92f6510db58, type: 2}

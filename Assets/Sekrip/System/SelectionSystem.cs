@@ -10,9 +10,16 @@ public class SelectionSystem : MonoBehaviour
     public TextMeshProUGUI dialogueTMP;
     public GameObject SelectionBox;
     public GameObject BottomBar;
+
+    [Header("don't Fill this")]
+    public string unlockFlag;
     public void Select()
     {
         BottomController controller = BottomBar.GetComponent<BottomController>();
+        if (!string.IsNullOrEmpty(unlockFlag))
+        {
+            GameManager.Instance.FlagsChoice[unlockFlag] = true;
+        }
         controller.scene = scene;
         BottomBar.SetActive(true);
         SelectionBox.SetActive(false);
@@ -21,5 +28,10 @@ public class SelectionSystem : MonoBehaviour
     void OnEnable()
     {
         dialogueTMP.SetText(dialogue);
+    }
+    void OnDisable()
+    {
+        unlockFlag = "";
+        gameObject.SetActive(false);
     }
 }
