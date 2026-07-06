@@ -602,6 +602,14 @@ PrefabInstance:
       propertyPath: flagsData.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5008525697802416521, guid: 38f63823ff35a444e89d0fe7e1e972dd, type: 3}
+      propertyPath: ChoicesLock.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008525697802416521, guid: 38f63823ff35a444e89d0fe7e1e972dd, type: 3}
+      propertyPath: ChoicesLock.Array.data[0].key
+      value: turnip
+      objectReference: {fileID: 0}
     - target: {fileID: 5136676358302220830, guid: 38f63823ff35a444e89d0fe7e1e972dd, type: 3}
       propertyPath: m_Name
       value: Game Manager

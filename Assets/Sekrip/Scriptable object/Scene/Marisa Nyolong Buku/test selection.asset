@@ -12,4 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6d48806e43c8e44b14cc5e75bfb9b4, type: 3}
   m_Name: test selection
   m_EditorClassIdentifier: 
-  selections: []
+  selections:
+  - dialogue: Pulang
+    selectedScene: {fileID: 11400000, guid: 365daf279f2ab9f45b43342c6c57fe9d, type: 2}
+    isLocked: 0
+    lockName: 
+    isUnlock: 0
+    keyName: 
+  - dialogue: Stay
+    selectedScene: {fileID: 11400000, guid: 365daf279f2ab9f45b43342c6c57fe9d, type: 2}
+    isLocked: 0
+    lockName: 
+    isUnlock: 0
+    keyName: 
+  - dialogue: Main EldenRing
+    selectedScene: {fileID: 11400000, guid: 365daf279f2ab9f45b43342c6c57fe9d, type: 2}
+    isLocked: 1
+    lockName: turnip
+    isUnlock: 0
+    keyName: 

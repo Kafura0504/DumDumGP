@@ -13,11 +13,27 @@ MonoBehaviour:
   m_Name: Buku DIbalikin
   m_EditorClassIdentifier: 
   audio: {fileID: 0}
-  scenes: []
-  Background: {fileID: 0}
+  scenes:
+  - Dialogue: Yaudah Nih bukunya
+    pembicara: {fileID: 11400000, guid: 01f2708a4640d5241b29a96d179c9a28, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 1
+    secondVisible: 1
+    mainVisible: 1
+    Position: 2
+  - Dialogue: Nah gitu dong
+    pembicara: {fileID: 11400000, guid: 569bdee881839f84a87bc7621db2e686, type: 2}
+    Ekspresi: 0
+    anim: 0
+    isMainSpeaker: 0
+    secondVisible: 1
+    mainVisible: 1
+    Position: 0
+  Background: {fileID: 8273650878549090882, guid: 259851a03638a1047928688369b8f7da, type: 3}
   nextScene: 0
   theNextScene: {fileID: 0}
   Exploration: 0
   mapData: {fileID: 0}
-  selection: 0
-  selectionData: {fileID: 0}
+  selection: 1
+  selectionData: {fileID: 11400000, guid: f32cefa5905d0ab4498ef065cfdf1219, type: 2}

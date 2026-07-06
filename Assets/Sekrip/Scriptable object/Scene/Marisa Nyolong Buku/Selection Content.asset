@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selections:
   - dialogue: Balikin Bukunya
-    selectedScene: {fileID: 11400000, guid: 365daf279f2ab9f45b43342c6c57fe9d, type: 2}
+    selectedScene: {fileID: 11400000, guid: 1ff126f738daa564ba9b44db4ec25f10, type: 2}
+    isLocked: 0
+    lockName: 
+    isUnlock: 0
+    keyName: 
   - dialogue: Ga mau
-    selectedScene: {fileID: 11400000, guid: 365daf279f2ab9f45b43342c6c57fe9d, type: 2}
+    selectedScene: {fileID: 11400000, guid: 1ff126f738daa564ba9b44db4ec25f10, type: 2}
+    isLocked: 0
+    lockName: 
+    isUnlock: 1
+    keyName: turnip
